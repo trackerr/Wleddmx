@@ -1,0 +1,7 @@
+[env:custom_build]
+extends = env:wemos_shield_esp32
+build_flags = ${env:wemos_shield_esp32.build_flags} -D WLED_DISABLE_ESPNOW -D WLED_ENABLE_DMX -D WLED_DISABLE_LOXONE -D WLED_DISABLE_ALEXA -D WLED_DISABLE_HUESYNC -D WLED_MAX_BUSSES=4 -D USERMOD_AUDIOREACTIVE -D USERMOD_DALLASTEMPERATURE -D USERMOD_AUTO_SAVE
+lib_deps = 
+  ${env:wemos_shield_esp32.lib_deps}
+  https://github.com/blazoncek/arduinoFFT.git
+  OneWire@~2.3.5
