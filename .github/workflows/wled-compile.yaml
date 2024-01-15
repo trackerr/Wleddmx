@@ -31,7 +31,7 @@ jobs:
         npm install
         echo '[env:custom_build]' >>platformio.ini
         echo 'extends = env:wemos_shield_esp32' >>platformio.ini
-        echo 'build_flags = ${env:wemos_shield_esp32.build_flags} -D WLED_DISABLE_ESPNOW -D WLED_ENABLE_DMX -D WLED_DISABLE_LOXONE -D WLED_DISABLE_ALEXA -D WLED_DISABLE_HUESYNC -D WLED_MAX_BUSSES=4 -D USERMOD_AUDIOREACTIVE -D USERMOD_DALLASTEMPERATURE -D USERMOD_AUTO_SAVE' >>platformio.ini
+        echo 'build_flags = ${env:wemos_shield_esp32.build_flags} -D WLED_ENABLE_DMX -D USERMOD_AUDIOREACTIVE -D USERMOD_DALLASTEMPERATURE -D USERMOD_AUTO_SAVE' >>platformio.ini
         echo 'lib_deps = ' >>platformio.ini
         echo '  ${env:wemos_shield_esp32.lib_deps}' >>platformio.ini
         echo '  https://github.com/blazoncek/arduinoFFT.git' >>platformio.ini
