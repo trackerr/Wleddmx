@@ -24,16 +24,17 @@ jobs:
       run: |
         rm -rf /tmp/WLEDtemp/* || true
         mkdir -p /tmp/WLEDtemp
-        wget https://api.github.com/repos/atuline/WLED/zipball/v0.13.4 -O /tmp/WLEDtemp/mm.zip
+        wget https://github.com/Aircoookie/WLED/archive/refs/heads/main.zip -O /tmp/WLEDtemp/mm.zip
         unzip /tmp/WLEDtemp/mm.zip -d /tmp/WLEDtemp
         find /tmp/WLEDtemp -maxdepth 1 -mindepth 1 -name "*" -type d >> /tmp/WLEDtemp/wledfoldername
         cd `cat /tmp/WLEDtemp/wledfoldername`
         npm install
         echo '[env:custom_build]' >>platformio.ini
-        echo 'extends = env:d1_mini' >>platformio.ini
-        echo 'build_flags = ${env:d1_mini.build_flags} -D WLED_ENABLE_DMX -D LEDPIN=16 -D I2S_SDPIN=0 -D I2S_WSPIN=12 -D I2S_CKPIN=15 -D USERMOD_DALLASTEMPERATURE -D USERMOD_AUTO_SAVE -D USERMOD_PWM_FAN -D USERMOD_DALLASTEMPERATURE' >>platformio.ini
+        echo 'extends = env:esp32dev' >>platformio.ini
+        echo 'build_flags = ${env:esp32dev.build_flags} -D WLED_DISABLE_ESPNOW -D WLED_ENABLE_DMX -D WLED_DISABLE_ALEXA -D WLED_DISABLE_HUESYNC -D LEDPIN=16 -D WLED_MAX_BUSSES=4 -D DEFAULT_LED_COUNT=40 -D USERMOD_AUDIOREACTIVE -D USERMOD_DALLASTEMPERATURE -D USERMOD_AUTO_SAVE -D USERMOD_PWM_FAN -D USERMOD_DALLASTEMPERATURE' >>platformio.ini
         echo 'lib_deps = ' >>platformio.ini
-        echo '  ${env:d1_mini.lib_deps}' >>platformio.ini
+        echo '  ${env:esp32dev.lib_deps}' >>platformio.ini
+        echo '  https://github.com/blazoncek/arduinoFFT.git' >>platformio.ini
         echo '  OneWire@~2.3.5' >>platformio.ini
         
         pio run -e custom_build || pio run -e custom_build
